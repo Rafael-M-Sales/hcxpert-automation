@@ -1,0 +1,23 @@
+{
+  "name": "hcxpert-automation",
+  "version": "1.0.0",
+  "description": "Projeto de automação de testes - Desafio HCXpert",
+  "scripts": {
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome",
+    "test:open": "cypress open"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
+    "@cypress/webpack-preprocessor": "^6.0.2",
+    "cypress": "^13.15.0",
+    "webpack": "^5.95.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/e2e/step_definitions/**/*.js",
+    "html": {
+      "enabled": true,
+      "output": "cypress/reports/cucumber-report.html"
+    }
+  }
+}
