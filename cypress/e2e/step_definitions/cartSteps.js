@@ -19,15 +19,21 @@ When("adiciono o primeiro produto ao carrinho", () => {
 Then("o produto deve ser adicionado ao carrinho com sucesso", () => {
   cy.contains("Added!").should("be.visible");
   productsPage.modalContinueShopping.should("be.visible");
+  cy.evidencia("carrinho_modal");
+  productsPage.clickViewCart();
+  cy.url({ timeout: 10000 }).should("include", "/view_cart");
+  cartPage.cartItems.should("have.length.greaterThan", 0);
   cy.evidencia("carrinho_adicionado");
-  productsPage.clickContinueShopping();
 });
 
 Then("o produto é adicionado ao carrinho como visitante", () => {
   cy.contains("Added!").should("be.visible");
   productsPage.modalContinueShopping.should("be.visible");
+  cy.evidencia("carrinho_modal_visitante");
+  productsPage.clickViewCart();
+  cy.url({ timeout: 10000 }).should("include", "/view_cart");
+  cartPage.cartItems.should("have.length.greaterThan", 0);
   cy.evidencia("carrinho_adicionado_visitante");
-  productsPage.clickContinueShopping();
 });
 
 When("acesso o carrinho de compras", () => {
