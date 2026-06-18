@@ -39,6 +39,7 @@ graph TD
 - [Estrutura do Projeto](#-estrutura-do-projeto)
 - [Casos de Teste Cobertos](#-casos-de-teste-cobertos)
 - [Relatórios de Teste](#-relatórios-de-teste)
+- [Integração com JIRA Xray](#-integração-com-jira-xray)
 
 ---
 
