@@ -51,6 +51,7 @@ graph TD
 | **Cucumber (BDD)** | 21.x | Pré-processador Cucumber para Cypress |
 | **Webpack** | 5.x | Bundler para step definitions |
 | **GitHub Actions** | - | Pipeline de CI/CD |
+| **JIRA Xray** | - | Integração com gestão de testes |
 
 ---
 
@@ -107,6 +108,14 @@ npx cypress run --spec "cypress/e2e/features/login.feature"
 npx cypress run --spec "cypress/e2e/features/api_trello.feature"
 ```
 
+### Executar testes e enviar resultados para o JIRA Xray
+
+```bash
+npm run test:xray
+```
+
+> **Pré-requisito:** Configurar as credenciais no arquivo `.env` (veja [Integração com JIRA Xray](#-integração-com-jira-xray)).
+
 ---
 
 ## 📁 Estrutura do Projeto
@@ -135,8 +144,11 @@ hcxpert-automation/
 │   │   └── e2e.js
 │   └── fixtures/
 │       └── users.json               # Massa de dados
+├── scripts/
+│   └── upload-xray.js               # Upload de resultados para JIRA Xray
 ├── cypress.config.js                # Configuração do Cypress
 ├── package.json                     # Dependências
+├── .env.example                     # Template de variáveis de ambiente
 ├── .gitignore
 └── README.md
 ```
@@ -193,6 +205,44 @@ Após executar os testes, o relatório estará disponível em:
 ```
 cypress/reports/cucumber-report.html
 ```
+
+---
+
+## 🔗 Integração com JIRA Xray
+
+O projeto suporta envio automático dos resultados dos testes para **JIRA Xray** via API.
+
+### Configuração
+
+1. No Jira, vá em **Configurações > APPS > Xray > API Keys** e crie um `client_id` e `client_secret`
+2. Copie o arquivo `.env.example` para `.env`:
+
+```bash
+cp .env.example .env
+```
+
+3. Preencha as credenciais no `.env`:
+
+```env
+XRAY_CLIENT_ID=seu_client_id_aqui
+XRAY_CLIENT_SECRET=seu_client_secret_aqui
+```
+
+### Funcionamento
+
+O script `scripts/upload-xray.js`:
+
+1. Lê o relatório Cucumber JSON gerado em `cypress/reports/cucumber-report.json`
+2. Autentica na API do Xray (`/api/v2/authenticate`)
+3. Envia os resultados via `POST /api/v2/import/execution/cucumber`
+
+### Executar com upload
+
+```bash
+npm run test:xray
+```
+
+> **Nota:** O arquivo `.env` está no `.gitignore` e **nunca** deve ser versionado.
 
 ---
 
