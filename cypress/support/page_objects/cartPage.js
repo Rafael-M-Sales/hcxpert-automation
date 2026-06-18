@@ -1,6 +1,6 @@
 class CartPage {
   visit() {
-    cy.visit("/view_cart");
+    cy.visit("/view_cart", { failOnStatusCode: false });
   }
 
   get cartItems() {

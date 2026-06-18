@@ -19,12 +19,14 @@ When("adiciono o primeiro produto ao carrinho", () => {
 Then("o produto deve ser adicionado ao carrinho com sucesso", () => {
   cy.contains("Added!").should("be.visible");
   productsPage.modalContinueShopping.should("be.visible");
+  cy.evidencia("carrinho_adicionado");
   productsPage.clickContinueShopping();
 });
 
 Then("o produto é adicionado ao carrinho como visitante", () => {
   cy.contains("Added!").should("be.visible");
   productsPage.modalContinueShopping.should("be.visible");
+  cy.evidencia("carrinho_adicionado_visitante");
   productsPage.clickContinueShopping();
 });
 
@@ -34,11 +36,13 @@ When("acesso o carrinho de compras", () => {
 
 Then("devo ver o produto adicionado na lista do carrinho", () => {
   cartPage.cartItems.should("have.length.greaterThan", 0);
+  cy.evidencia("carrinho_itens");
 });
 
 Then("o nome e preço do produto devem estar corretos", () => {
   cartPage.cartItemNames.should("not.be.empty");
   cartPage.cartItemPrices.should("not.be.empty");
+  cy.evidencia("carrinho_nome_preco");
 });
 
 When("clico em {string}", (buttonText) => {
@@ -47,8 +51,10 @@ When("clico em {string}", (buttonText) => {
 
 Then("devo ser direcionado para a tela de pagamento", () => {
   cy.contains("Review Your Order").should("be.visible");
+  cy.evidencia("carrinho_pagamento");
 });
 
 Then("devo ver o resumo do pedido com o produto", () => {
   cy.get("#cart_info").should("be.visible");
+  cy.evidencia("carrinho_resumo_pedido");
 });

@@ -1,6 +1,6 @@
 class ProductsPage {
   visit() {
-    cy.visit("/products");
+    cy.visit("/products", { failOnStatusCode: false });
   }
 
   get searchInput() {

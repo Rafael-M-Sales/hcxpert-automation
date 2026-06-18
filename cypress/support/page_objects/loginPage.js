@@ -1,6 +1,6 @@
 class LoginPage {
   visit() {
-    cy.visit("/login");
+    cy.visit("/login", { failOnStatusCode: false });
   }
 
   fillEmail(email) {

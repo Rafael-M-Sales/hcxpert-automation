@@ -12,8 +12,10 @@ When("busco pelo produto {string}", (productName) => {
 Then("devo ver resultados de busca para {string}", (productName) => {
   productsPage.searchedProducts.should("have.length.greaterThan", 0);
   cy.contains(productName).should("be.visible");
+  cy.evidencia("busca_resultados");
 });
 
 Then("não deve haver resultados de busca", () => {
   cy.get(".features_items").find(".product-image-wrapper").should("not.exist");
+  cy.evidencia("busca_sem_resultados");
 });
