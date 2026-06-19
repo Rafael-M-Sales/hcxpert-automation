@@ -50,6 +50,8 @@ graph TD
 | **Node.js** | >= 18 | Runtime JavaScript |
 | **Cypress** | 13.x | Framework de testes E2E |
 | **Cucumber (BDD)** | 21.x | Pré-processador Cucumber para Cypress |
+| **Playwright** | 1.x | Geração de evidências manuais (browser headed) |
+| **PowerShell** | 5.1+ | Captura desktop da janela do browser |
 | **Webpack** | 5.x | Bundler para step definitions |
 | **GitHub Actions** | - | Pipeline de CI/CD |
 | **JIRA Xray** | - | Integração com gestão de testes |
@@ -84,11 +86,19 @@ npm install
 
 ## ▶️ Executando os Testes
 
-### Executar todos os testes (modo headless)
+### Executar testes (modo headless)
 
 ```bash
 npm test
 ```
+
+### Executar testes com evidências manuais (browser + captura desktop)
+
+```bash
+npm run test:headed
+```
+
+Gera 30 screenshots do browser inteiro (1296×788) via Playwright + PowerShell.
 
 ### Abrir o Cypress (modo interativo)
 
@@ -136,6 +146,12 @@ hcxpert-automation/
 │   │       ├── searchSteps.js
 │   │       ├── cartSteps.js
 │   │       └── apiSteps.js
+│   ├── evidencias/                  # Screenshots manuais (browser inteiro)
+│   │   ├── add_to_cart.feature/
+│   │   ├── login.feature/
+│   │   ├── search.feature/
+│   │   ├── checkout.feature/
+│   │   └── api_trello.feature/
 │   ├── support/
 │   │   ├── page_objects/            # Page Object Model
 │   │   │   ├── loginPage.js
@@ -146,10 +162,17 @@ hcxpert-automation/
 │   └── fixtures/
 │       └── users.json               # Massa de dados
 ├── scripts/
-│   └── upload-xray.js               # Upload de resultados para JIRA Xray
+│   ├── evidence-manual.mjs          # Gera evidencias manuais (Playwright + PowerShell)
+│   ├── capture-chrome-window.ps1    # Captura desktop da janela do browser
+│   ├── capture-api-evidencias.mjs   # Evidencias de API via templates HTML
+│   ├── generate-report.mjs          # Relatorio HTML Cucumber
+│   ├── upload-xray.mjs              # Upload de resultados para JIRA Xray
+│   └── templates/
+│       ├── api-evidence-01.html
+│       └── api-evidence-02.html
 ├── cypress.config.js                # Configuração do Cypress
 ├── package.json                     # Dependências
-├── .env.example                     # Template de variáveis de ambiente
+├── .env.example                     # Template de variaveis de ambiente
 ├── .gitignore
 └── README.md
 ```
@@ -194,6 +217,39 @@ hcxpert-automation/
 | 2 | GET em ação com ID inválido | 400 |
 
 **Total Geral: 10 cenários de teste (8 Web + 2 API)**
+
+---
+
+## 📸 Evidências de Teste
+
+Cada cenário gera **4 screenshots do browser inteiro** (1296×788) seguindo o padrão:
+
+1. **Item visível** — mostra o elemento alvo na tela
+2. **Ação** — hover / preenchimento / overlay
+3. **Clique com contorno vermelho** — `4px solid red` no elemento antes da ação
+4. **Resultado** — estado final após a ação
+
+### Estrutura
+
+```
+cypress/evidencias/<spec.feature>/<YYYY-MM-DD>/
+├── manual_01_item_visivel.png
+├── manual_02_overlay_laranja.png
+├── manual_03_adicionado_contorno.png
+└── manual_04_item_no_carrinho.png
+```
+
+### Como gera
+
+`npm run test:headed` executa em sequência:
+1. Cypress headed (validação dos cenários, **zero screenshots**)
+2. Playwright Chromium headed + PowerShell captura a janela do browser
+
+### Bloqueio de anúncios
+
+- Rotas de ad networks (`doubleclick.net`, `googlesyndication.com`, etc.) são abortadas no Playwright
+- Elementos de anúncio são removidos do DOM antes de cada captura
+- Popups indesejados são fechados automaticamente
 
 ---
 
