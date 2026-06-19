@@ -42,12 +42,27 @@ class ProductsPage {
       .find(".productinfo h2");
   }
 
-  addFirstProductToCart() {
+  hoverOverFirstProduct() {
     cy.get(".features_items .product-image-wrapper")
       .first()
+      .scrollIntoView()
+      .find(".single-products")
       .trigger("mouseover")
+      .find(".product-overlay")
+      .invoke("css", "height", "100%");
+    cy.wait(500);
+  }
+
+  clickFirstProductAddToCart() {
+    cy.get(".features_items .product-image-wrapper")
+      .first()
       .find(".overlay-content .btn.add-to-cart")
       .click({ force: true });
+  }
+
+  addFirstProductToCart() {
+    this.hoverOverFirstProduct();
+    this.clickFirstProductAddToCart();
   }
 
   get modalContinueShopping() {

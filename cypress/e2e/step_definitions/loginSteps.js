@@ -20,7 +20,6 @@ When("clico no botão Login", () => {
 
 Then("devo ser redirecionado para a página inicial", () => {
   cy.url().should("include", "/");
-  cy.evidencia("login_sucesso");
 });
 
 Then("devo ver a mensagem {string}", (message) => {
@@ -29,5 +28,4 @@ Then("devo ver a mensagem {string}", (message) => {
 
 Then("devo ver a mensagem de erro {string}", (message) => {
   loginPage.errorMessage.should("contain", message);
-  cy.evidencia("login_erro");
 });

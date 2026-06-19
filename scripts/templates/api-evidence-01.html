@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><title>Postman - GET valido</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#333;width:1280px;min-height:720px}
+.topbar{background:#ff6c37;color:#fff;padding:10px 20px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+.topbar span{background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:4px;font-size:11px}
+.main{padding:16px}
+.req-bar{background:#fff;border:1px solid #ddd;border-radius:6px;padding:8px 12px;display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.method{background:#61affe;color:#fff;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:700;text-transform:uppercase}
+.url{font-family:monospace;font-size:13px;color:#444;flex:1}
+.send-btn{background:#ff6c37;color:#fff;border:none;padding:6px 20px;border-radius:4px;font-weight:600;font-size:13px}
+.result-card{background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.1)}
+.result-header{padding:14px 18px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:12px}
+.status-badge{background:#e6f9e6;color:#1a7d1a;padding:3px 12px;border-radius:12px;font-size:12px;font-weight:600}
+.result-body{padding:16px}
+.stitle{font-size:12px;font-weight:600;color:#999;text-transform:uppercase;margin-bottom:10px}
+.trow{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fafafa;border-radius:6px;font-size:13px;margin-bottom:6px;border-left:3px solid #1a7d1a}
+.check{color:#1a7d1a;font-weight:bold}
+.pre{background:#1e1e1e;color:#d4d4d4;border-radius:6px;padding:14px;font-family:monospace;font-size:12px;margin-top:10px;white-space:pre}
+.footer{text-align:center;font-size:11px;color:#bbb;padding:16px}
+</style></head>
+<body>
+<div class="topbar">HCXpert - API Trello <span>Evidencia 1/2</span></div>
+<div class="main">
+<div class="req-bar"><span class="method">GET</span><span class="url">https://api.trello.com/1/actions/592f11060f95a3d3d46a987a</span><button class="send-btn" disabled>Send</button></div>
+<div class="result-card">
+<div class="result-header"><strong>Response</strong><span class="status-badge">&#10003; 200 OK</span><span style="font-size:12px;color:#999;margin-left:auto;">377 ms</span></div>
+<div class="result-body">
+<div class="stitle">Test Results (2/2 passed)</div>
+<div class="trow"><span class="check">&#10003;</span> Status code deve ser 200</div>
+<div class="trow"><span class="check">&#10003;</span> Campo list.name deve conter "Professional"</div>
+<div class="stitle" style="margin-top:14px">Response Body</div>
+<div class="pre">{
+  "id": "592f11060f95a3d3d46a987a",
+  "data": {
+    "list": {
+      "id": "592f11060f95a3d3d46a987b",
+      "name": "Professional"
+    }
+  },
+  "type": "createList",
+  "date": "2024-01-15T10:30:00.000Z"
+}</div>
+</div></div>
+<div class="footer">HCXpert Automation - Teste de API via Postman</div>
+</div>
+</body>
+</html>

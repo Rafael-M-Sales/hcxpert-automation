@@ -3,16 +3,21 @@
   "version": "1.0.0",
   "description": "Projeto de automação de testes - Desafio HCXpert",
   "scripts": {
-    "test": "cypress run",
-    "test:chrome": "cypress run --browser chrome",
+    "test": "cypress run && node scripts/generate-report.mjs && node scripts/capture-api-evidencias.mjs",
+    "test:chrome": "cypress run --browser chrome && node scripts/generate-report.mjs && node scripts/capture-api-evidencias.mjs",
+    "test:headed": "cypress run --browser chrome --headed && node scripts/generate-report.mjs && node scripts/capture-api-evidencias.mjs && node scripts/evidence-manual.mjs",
     "test:open": "cypress open",
-    "test:xray": "cypress run && node scripts/upload-xray.js"
+    "test:xray": "cypress run && node scripts/generate-report.mjs && node scripts/upload-xray.mjs",
+    "report": "node scripts/generate-report.mjs"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
     "@cypress/webpack-preprocessor": "^6.0.2",
     "cypress": "^13.15.0",
     "dotenv": "^16.4.5",
+    "multiple-cucumber-html-reporter": "^4.0.0",
+    "playwright": "^1.61.0",
+    "screenshot-desktop": "^1.15.4",
     "webpack": "^5.95.0"
   },
   "cypress-cucumber-preprocessor": {
